@@ -1,7 +1,10 @@
 LaTeX support for Arsenal font by Andrij Shevchenko
-Boris Veytsman
-License: LPPL 1.3c (LaTeX files)
-SIL OFL (fonts)
+Author: Boris Veytsman
+Copyright: Boris Veytsman, 2023. License: LPPL 1.3c (LaTeX files)
+
+Fonts are Copyright 2012 The Arsenal Project Authors (andrij.design@gmail.com),
+     licensed under the SIL Open Font License, Version 1.1.,
+     http://scripts.sil.org/OFL
 
 From https://github.com/alexeiva/Arsenal
 
@@ -16,4 +19,4 @@ From https://github.com/alexeiva/Arsenal
     contrast modulation articulate grace and expressivity. Arsenal's
     somewhat lyrical sentiment abides to the Ukrainian nature of the font.
 
-This package provides the fonts and LaTeX support for them with matching math.  
+This package provides the fonts and LaTeX support for them with matching math.
