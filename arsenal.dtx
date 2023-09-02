@@ -12,9 +12,10 @@
 %
 %<*driver>
 \documentclass{l3doc}
-\usepackage{arsenal}
+\usepackage[default, scale=0.9]{arsenal}
 \usepackage{natbib, booktabs}
 \usepackage[tableposition=top]{caption}
+\urlstyle{rm}
 \begin{document}
   \DocInput{\jobname.dtx}
 \end{document}
@@ -29,16 +30,67 @@
 % \href{mailto:boris@varphi.com}{boris@varphi.com}}}
 % \maketitle
 % \begin{abstract}
-%   Arsenal is a font created by Andrij Shevchenko, which won
+%   Arsenal is the font created by Andrij Shevchenko.  It won
 %   Ukrainian Type Design Competition `Mystetsky Arsenal' in 2011.
 %   This package provides \LaTeX\ support for it and matching math
 %   fonts.
 % \end{abstract}
+% \tableofcontents
 % \begin{documentation}
 %
 %\section{User manual}
 %\label{sec:ug}
 %
+% \textsc{\itshape \bfseries One two} one two \textsw{AAA}
+% 
+%\subsection{Introduction}
+%\label{sec:ug-intro}
+%
+% In 2011 the Ukrainian Type Design Competition ``Mystetsky Arsenal''
+% (\url{http://www.ukrainian-type.com/about/}) was won by the font by
+% Andrij Shevchenko.  The competiton was aimed at the creation of a
+% modern practical font based on Ukrainian traditions.  The winner is
+% remarkable for its clarity and clean shapes.
+%
+% Later the font was extended by Alexei Vanyashin \& cyreal.org, Nhung
+% Nguyen, and Marc Foley (see
+% \url{https://github.com/alexeiva/Arsenal}).  This package provides
+% \LaTeX\ interface for the font and optionally math support.
+%
+%
+%\subsection{Package options}
+%\label{sec:ug-options}
+%
+% \begin{variable}{default, sfdefault, math, scale, Scale}
+%   The options for the package use the key-value interface.
+%   The part |=true| for the boolean options can be dropped.
+%
+%   The following options are recognized:
+%   \begin{description}
+%   \item[default] whether to make Arsenal the main font of the
+%     document, either |true| (the default) or |false|.
+%   \item[sfdefault] whether to make Arsenal the sans serif font of your
+%     document, either |true| or |false| (the default).
+%   \item[math] whether to enable math support.  The currently
+%   recognized options are |none| and |iwona|.  The default depends on
+%   whether Arsenal is your main font: it is |iwona| if yes, and
+%   |none| otherwise.  If |iwona| is selected, we use
+%   \pkg{iwonamath}~\citep{iwonamath}.
+% \item[scale] the scale for the font, by default 1.  The option
+% |Scale| is the synonym.
+%   \end{description}
+% \end{variable}
+%
+%
+%\subsection{Font familiy, shapes, and shapes}
+%\label{sec:ug-families}
+%
+% \begin{function}{\arsenalfamily}
+%   The font provides the command \cs{arsenalfamily} that selects the
+%   font.  Alternatively, the NFSS commands
+%   \cs{fontfamily}|{arsenal}|\cs{selectfont} can be used to select
+%   Arsenal family. 
+% \end{function}
 %
 % \end{documentation}
 %
@@ -64,13 +116,101 @@
 %    \end{macrocode}
 %
 %
+%\subsection{Options}
+%\label{sec:options}
+%
+% \begin{variable}{
+%   default,
+%   sfdefault,
+%   math,
+%   scale,
+%   Scale,
+%   \l_@@_default_bool,
+%   \l_@@_sfdefault_bool,
+%   \l_@@_math_tl,
+%   \l_@@_scale_tl,
+% }
+%    \begin{macrocode}
+\keys_define:nn {arsenal}
+{
+  default .bool_set:N = \l_@@_default_bool,
+  defaul .default:n = true,
+  sfdefault .bool_set:N = \l_@@_sfdefault_bool,
+  sfdefault .default:n = true,
+  math .tl_set:N = \l_@@_math_tl,
+  scale .tl_set:N = \l_@@_scale_tl,
+  Scale .tl_set:N = \l_@@_scale_tl,
+}
+\keys_set:nn { arsenal }
+{
+  default=true,
+  sfdefault = false,
+  scale = 1,
+}
+\tl_clear:N \l_@@_math_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% Processing options
+%    \begin{macrocode}
+\IfFormatAtLeastTF { 2022-06-01 }
+  { \ProcessKeyOptions [ arsenal ] }
+  {
+    \RequirePackage { l3keys2e }
+    \ProcessKeysOptions { arsenal }
+  }
+%    \end{macrocode}
+% And setting up math
+%    \begin{macrocode}
+\tl_if_empty:NTF \l_@@_math_tl
+{
+  \bool_if:NTF \l_@@_default_bool
+  {
+    \tl_set:Nn \l_@@_math_tl {iwona}
+  }
+  {
+    \tl_set:Nn \l_@@_math_tl {none}
+  }
+}
+{}
+%    \end{macrocode}
+%
+%
+%\subsection{Setting up font}
+%\label{sec:font}
+%
+%    \begin{macrocode}
+\RequirePackage{fontspec}
+\newfontfamily\arsenalfamily{Arsenal-Regular.otf}
+[
+  NFSSFamily=arsenal,
+  Scale=\l_@@_scale_tl,
+  ItalicFont = Arsenal-Italic.otf,
+  BoldFont = Arsenal-Bold.otf,
+  BoldItalicFont = Arsenal-BoldItalic.otf,
+]
+%    \end{macrocode}
+%
+% Checking whether we want the font to be default
+%    \begin{macrocode}
+\bool_if:NTF \l_@@_default_bool
+{
+  \renewcommand\rmdefault{arsenal}
+}
+{}
+\bool_if:NTF \l_@@_sfdefault_bool
+{
+  \renewcommand\sfdefault{arsenal}
+}
+{}
+%    \end{macrocode}
 %
 %    \begin{macrocode}
 %</package>
 %    \end{macrocode}
 % \end{implementation}
 %
-% \bibliography{iwonamath}
+% \bibliography{arsenal}
 % \bibliographystyle{plainnat}
 %
 %
