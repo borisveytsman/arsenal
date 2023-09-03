@@ -330,10 +330,11 @@
 %
 % Iwona is simple\ldots
 %    \begin{macrocode}
+\tl_new:N \l_@@_tmp_tl
 \tl_if_eq:NnT \l_@@_math_tl {iwona}
 {
-  \tl_set:Ne \l_tmpa_tl {\fp_to_tl:n {\l_@@_scale_tl * 1.125}}
-  \RequirePackage[scale=\l_tmpa_tl, condensed]{iwonamath}
+  \tl_set:Nn \l_@@_tmp_tl {\fp_to_tl:n {\l_@@_scale_tl * 1.1}}
+  \RequirePackage[Scale=\l_@@_tmp_tl, condensed, light]{iwonamath}
 }
 %    \end{macrocode}
 %
@@ -341,16 +342,16 @@
 %    \begin{macrocode}
 \tl_if_eq:NnT \l_@@_math_tl {kpsans}
 {
-  \tl_set:Ne \l_tmpa_tl {\fp_to_tl:n {\l_@@_scale_tl * 1.125}}
+  \tl_set:Ne \l_@@_tmp_tl {\fp_to_tl:n {\l_@@_scale_tl * 1.1}}
   \RequirePackage[symbols]{kpfonts-otf}
   \setmathfont{KpMath-Sans.otf}[
-  Scale=\l_tmpa_tl,
+  Scale=\l_@@_tmp_tl,
   BoldFont=KpMath-SansBold.otf]
 
   \setmathfont{KpMath-Sans.otf}[
   range={cal,bfcal},
   RawFeature=+ss01,
-  Scale=\l_tmpa_tl,
+  Scale=\l_@@_tmp_tl,
   BoldFont=KpMath-SansBold.otf]
   
 }

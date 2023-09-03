@@ -6,7 +6,7 @@ FONTS = \
 	Arsenal-Italic.otf \
 	Arsenal-Regular.otf 
 
-SAMPLES = 
+SAMPLES = sample-math-iwona.tex sample-math-kpsans.tex
 
 PDF = $(PACKAGE).pdf ${SAMPLES:%.tex=%.pdf}
 
@@ -35,8 +35,13 @@ all:  ${PDF} $(PACKAGE).sty $(FONTS)
 	while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log) \
 	do xelatex $<; done
 
+sample-math-%.tex: $(PACKAGE).ins sample-math.dtx
+	xelatex $<
+
 %.otf: arsenal-fonts/fonts/otf/%.otf
 	cp $< $@
+
+
 
 clean:
 	$(RM)  *_FAMILY_* *.log *.aux \
@@ -44,7 +49,7 @@ clean:
 	*.ilg *.ind *.out *.lof \
 	*.lot *.bbl *.blg *.gls \
 	*.dvi *.ps *.thm *.tgz *.zip *.rpi \
-        *.hd  *.sty
+        *.hd  *.sty sample-math-*.tex
 
 
 distclean: clean
