@@ -12,7 +12,7 @@
 %
 %<*driver>
 \documentclass{l3doc}
-\usepackage[default, scale=0.9]{arsenal}
+\usepackage[default]{arsenal}
 \usepackage{natbib, booktabs}
 \usepackage[tableposition=top]{caption}
 \urlstyle{rm}
@@ -41,7 +41,6 @@
 %\section{User manual}
 %\label{sec:ug}
 %
-% \textsc{\itshape \bfseries One two} one two \textsw{AAA}
 % 
 %\subsection{Introduction}
 %\label{sec:ug-intro}
@@ -54,8 +53,16 @@
 %
 % Later the font was extended by Alexei Vanyashin \& cyreal.org, Nhung
 % Nguyen, and Marc Foley (see
-% \url{https://github.com/alexeiva/Arsenal}).  This package provides
+% \url{https://github.com/alexeiva/Arsenal}).  The font now supports a
+% large number of languages with Latin and Cyrillic alphabet, it has
+% real small caps, historic forms, swash capitals and many other
+% features.  
+%
+% This package provides
 % \LaTeX\ interface for the font and optionally math support.
+%
+% Since the font it in \textsc{otf} format, you do need a Unicode
+% engine like \XeTeX\ or Lua\TeX\ to use it.  
 %
 %
 %\subsection{Package options}
@@ -72,27 +79,91 @@
 %   \item[sfdefault] whether to make Arsenal the sans serif font of your
 %     document, either |true| or |false| (the default).
 %   \item[math] whether to enable math support.  The currently
-%   recognized options are |none| and |iwona|.  The default depends on
-%   whether Arsenal is your main font: it is |iwona| if yes, and
-%   |none| otherwise.  If |iwona| is selected, we use
-%   \pkg{iwonamath}~\citep{iwonamath}.
-% \item[scale] the scale for the font, by default 1.  The option
-% |Scale| is the synonym.
+%     recognized options are |none|, |kpsans|, and |iwona|.  The
+%     default depends on whether Arsenal is your main font: it is
+%     |kpsans| if yes, and |none| otherwise.  If |kpsans| is selected,
+%     we use \textsc{otf} version of KpSans
+%     fonts~\citep{kpfonts-otf}. If |iwona| is selected, we use
+%     \pkg{iwonamath}~\citep{iwonamath}.
+% \item[scale] the scale for the font, by default 0.89.  The option
+% |Scale| is a synonym.
 %   \end{description}
 % \end{variable}
 %
 %
-%\subsection{Font familiy, shapes, and shapes}
+%\subsection{Font features}
 %\label{sec:ug-families}
 %
-% \begin{function}{\arsenalfamily}
-%   The font provides the command \cs{arsenalfamily} that selects the
-%   font.  Alternatively, the NFSS commands
-%   \cs{fontfamily}|{arsenal}|\cs{selectfont} can be used to select
-%   Arsenal family. 
+% \begin{function}{\arsenalfamily, \textarsenal}
+%   \begin{syntax}
+%     \cs{arsenalfamily} \meta{text}
+%     \cs{textarsenal}\Arg{text}
+%   \end{syntax}
+%   The font provides the commands \cs{arsenalfamily} and
+%   \cs{textarsenal} for selecting the font.  Alternatively, the NFSS
+%   commands \cs{fontfamily}|{arsenal}|\cs{selectfont} can be used to
+%   select Arsenal family.
+% \end{function}
+%
+% The font has normal and \textit{italic} shapes, as well as bolded
+% \textbf{bold} and \textbf{\itshape bold italic}. It has
+% \textsc{Small Caps}, \textsc{\itshape Italic Small Caps},
+% \textsc{\bfseries Bold Small Caps} and \textsc{\bfseries\itshape
+% Bold Italic Small Caps}.  They are selected by the standard \LaTeX\
+% commands.  
+%
+% \begin{function}{\swshape, \textsw}
+%   The font has Swash shape, selected by the commands \cs{swshape}
+%   and \cs{textsw}.  There are both normal and bold versions:
+%   \textsw{SWASH}, \textsw{\bfseries Bold SWASH}.  Moreover, there is
+%   an italic version \textsw{\itshape SWASH},
+%   \textsw{\bfseries\itshape Bold SWASH}, and even a small caps
+%   version \textsw{\scshape Swash}, \textsw{\scshape\bfseries Bold
+%   Swash}.
+% 
+% \end{function}
+%
+% The font has other features, such are two alternate forms and
+% historic style.  They can be selected by the
+% \pkg{fontspec}~\citep{fontspec} commands like
+% |\addfontfeatures{Style=Historic}| or
+% |\addfontfeautures{Alternate=1}|.  
+%
+%
+%
+%\subsection{Special symbols in text}
+%\label{sec:chars}
+%
+% \begin{function}{
+%   \texthryvnia,
+%   \texttugrik,
+%   \texttenge,
+%   \textruble
+% }
+% The font has common currency characters, like \cs{textdollar}
+% (\textdollar), \cs{textyen} (\textyen), \cs{textsterling}
+% (\textsterling), \cs{texteuro} (\texteuro).  It also defines several
+% less common currency characters:
+%   \cs{texthryvnia} (\texthryvnia),
+%   \cs{texttugrik} (\texttugrik),
+%   \cs{texttenge} (\texttenge),
+%   \cs{textruble} (\textruble).
+% \end{function}
+%
+% \begin{function}{
+%   \textaldine,
+%   \textsmilewhite,
+%   \textsmileblack
+% }
+% The font has \cs{textnumero} sign: \textnumero. It also defines some
+% less common characters:
+%   \cs{textaldine} (\textaldine),
+%   \cs{textsmilewhite} (\textsmilewhite)
+%   \cs{textsmileblack} (\textsmileblack).
 % \end{function}
 %
 % \end{documentation}
+%
 %
 % \begin{implementation}
 %
@@ -131,13 +202,15 @@
 %   \l_@@_scale_tl,
 % }
 %    \begin{macrocode}
+\tl_new:N \l_@@_math_tl
 \keys_define:nn {arsenal}
 {
   default .bool_set:N = \l_@@_default_bool,
   defaul .default:n = true,
   sfdefault .bool_set:N = \l_@@_sfdefault_bool,
   sfdefault .default:n = true,
-  math .tl_set:N = \l_@@_math_tl,
+  math .choices:nn = {none, kpsans, iwona}
+  {\tl_set_eq:NN \l_@@_math_tl \l_keys_choice_tl },
   scale .tl_set:N = \l_@@_scale_tl,
   Scale .tl_set:N = \l_@@_scale_tl,
 }
@@ -145,7 +218,7 @@
 {
   default=true,
   sfdefault = false,
-  scale = 1,
+  scale = 0.89,
 }
 \tl_clear:N \l_@@_math_tl
 %    \end{macrocode}
@@ -162,17 +235,16 @@
 %    \end{macrocode}
 % And setting up math
 %    \begin{macrocode}
-\tl_if_empty:NTF \l_@@_math_tl
+\tl_if_empty:NT \l_@@_math_tl
 {
   \bool_if:NTF \l_@@_default_bool
   {
-    \tl_set:Nn \l_@@_math_tl {iwona}
+    \tl_set:Nn \l_@@_math_tl {kpsans}
   }
   {
     \tl_set:Nn \l_@@_math_tl {none}
   }
 }
-{}
 %    \end{macrocode}
 %
 %
@@ -188,21 +260,100 @@
   ItalicFont = Arsenal-Italic.otf,
   BoldFont = Arsenal-Bold.otf,
   BoldItalicFont = Arsenal-BoldItalic.otf,
+  SwashFont = Arsenal-Regular.otf,
+  SwashFeatures={Style=Swash},
+  BoldSwashFont = Arsenal-Bold.otf,
+  BoldSwashFeatures={Style=Swash},
+  FontFace = {m}{itsw}{Font = Arsenal-Italic.otf, Style=Swash},
+  FontFace = {b}{itsw}{Font = Arsenal-BoldItalic.otf, Style=Swash},
 ]
 %    \end{macrocode}
 %
 % Checking whether we want the font to be default
 %    \begin{macrocode}
-\bool_if:NTF \l_@@_default_bool
+\bool_if:NT \l_@@_default_bool
 {
   \renewcommand\rmdefault{arsenal}
 }
-{}
-\bool_if:NTF \l_@@_sfdefault_bool
+
+\bool_if:NT \l_@@_sfdefault_bool
 {
   \renewcommand\sfdefault{arsenal}
 }
-{}
+%    \end{macrocode}
+%
+% \begin{macro}{\textarsenal}
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textarsenal}{\arsenalfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+% Swash changing rules
+%    \begin{macrocode}
+\DeclareFontShapeChangeRule {sw}{it}  {itsw}  {it}
+\DeclareFontShapeChangeRule {it}{sw}  {itsw}  {sw}
+%    \end{macrocode}
+%
+% Special characters, absent in the default
+% \begin{macro}{
+%   \texthryvnia,
+%   \texttugrik,
+%   \texttenge,
+%   \textruble
+% }
+% Currency symbolse
+%    \begin{macrocode}
+\DeclareUnicodeSymbol{\texthryvnia}       {"20B4}
+\DeclareUnicodeSymbol{\texttugrik}        {"20AE}
+\DeclareUnicodeSymbol{\texttenge}         {"20B8}
+\DeclareUnicodeSymbol{\textruble}         {"20BD}
+%    \end{macrocode}
+%   
+% \end{macro}
+%
+% \begin{macro}{
+%   \textaldine,
+%   \textsmilewhite,
+%   \textsmileblack
+% }
+%  Other symbols
+%    \begin{macrocode}
+\DeclareUnicodeSymbol{\textaldine}        {"2767}
+\DeclareUnicodeSymbol{\textsmilewhite}    {"263A}
+\DeclareUnicodeSymbol{\textsmileblack}    {"263B}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%\subsection{Math}
+%\label{sec:math}
+%
+% Iwona is simple\ldots
+%    \begin{macrocode}
+\tl_if_eq:NnT \l_@@_math_tl {iwona}
+{
+  \tl_set:Ne \l_tmpa_tl {\fp_to_tl:n {\l_@@_scale_tl * 1.125}}
+  \RequirePackage[scale=\l_tmpa_tl, condensed]{iwonamath}
+}
+%    \end{macrocode}
+%
+% Now kpsans.  Mostly from~\citep{kpfonts-otf}.
+%    \begin{macrocode}
+\tl_if_eq:NnT \l_@@_math_tl {kpsans}
+{
+  \tl_set:Ne \l_tmpa_tl {\fp_to_tl:n {\l_@@_scale_tl * 1.125}}
+  \RequirePackage[symbols]{kpfonts-otf}
+  \setmathfont{KpMath-Sans.otf}[
+  Scale=\l_tmpa_tl,
+  BoldFont=KpMath-SansBold.otf]
+
+  \setmathfont{KpMath-Sans.otf}[
+  range={cal,bfcal},
+  RawFeature=+ss01,
+  Scale=\l_tmpa_tl,
+  BoldFont=KpMath-SansBold.otf]
+  
+}
 %    \end{macrocode}
 %
 %    \begin{macrocode}
