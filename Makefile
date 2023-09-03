@@ -61,8 +61,8 @@ distclean: clean
 #
 archive:  all clean
 	COPYFILE_DISABLE=1  \
-	tar -C .. -czvf ../$(PACKAGE).tgz --exclude '*~' \
-	--exclude '*.tgz' --exclude '*.zip'  --exclude .git $(PACKAGE)
+	tar -C .. -czvf ../$(PACKAGE).tgz --exclude '*~' --exclude arsenal-fonts \
+	--exclude '*.tgz' --exclude '*.zip'  --exclude ".git*" $(PACKAGE)
 	mv ../$(PACKAGE).tgz .
 
 zip:  all clean
