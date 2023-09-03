@@ -6,11 +6,11 @@ FONTS = \
 	Arsenal-Italic.otf \
 	Arsenal-Regular.otf 
 
-SAMPLES = sample-math-iwona.tex sample-math-kpsans.tex
+SAMPLES = sample-math-iwona.tex sample-math-kpsans.tex sample-text.tex
 
 PDF = $(PACKAGE).pdf ${SAMPLES:%.tex=%.pdf}
 
-all:  ${PDF} $(PACKAGE).sty $(FONTS)
+all:  ${PDF} $(PACKAGE).sty $(FONTS) LICENSE_FONTS
 
 
 %.pdf:  %.dtx   $(PACKAGE).sty $(FONTS)
@@ -41,7 +41,8 @@ sample-math-%.tex: $(PACKAGE).ins sample-math.dtx
 %.otf: arsenal-fonts/fonts/otf/%.otf
 	cp $< $@
 
-
+LICENSE_FONTS: arsenal-fonts/OFL.TXT
+	cp $< $@
 
 clean:
 	$(RM)  *_FAMILY_* *.log *.aux \
@@ -53,14 +54,14 @@ clean:
 
 
 distclean: clean
-	$(RM) $(PDF) $(PACKAGE).sty $(FONTS)
+	$(RM) $(PDF) $(PACKAGE).sty $(FONTS) LICENSE_FONTS
 
 #
 # Archive for the distribution. Includes typeset documentation
 #
 archive:  all clean
 	COPYFILE_DISABLE=1  \
-	tar -C .. -czvf ../$(PACKAGE).tgz --exclude '*~' --exclude LICENSE \
+	tar -C .. -czvf ../$(PACKAGE).tgz --exclude '*~' \
 	--exclude '*.tgz' --exclude '*.zip'  --exclude .git $(PACKAGE)
 	mv ../$(PACKAGE).tgz .
 

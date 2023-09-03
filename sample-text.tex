@@ -1,0 +1,195 @@
+\documentclass{article}
+\usepackage[default]{arsenal}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{hyperref}
+\urlstyle{rm}
+\usepackage{microtype}
+\usepackage[ukrainian, english]{babel}
+\setcounter{secnumdepth}{0}
+\makeatletter
+\def\GetFileInfo#1{%
+  \def\filename{#1}%
+  \def\@tempb##1 ##2 ##3\relax##4\relax{%
+    \def\filedate{##1}%
+    \def\fileversion{##2}%
+    \def\fileinfo{##3}}%
+  \edef\@tempa{\csname ver@#1\endcsname}%
+  \expandafter\@tempb\@tempa\relax? ? \relax\relax}
+\makeatother
+\GetFileInfo{arsenal.sty}
+
+\usepackage{unicodefonttable}
+
+\newcommand\device{{\centering\textaldine\textaldine\textaldine\par}}
+
+
+\begin{document}
+\selectlanguage{english}
+\title{Sample of Arsenal fonts}
+\author{Boris Veytsman}
+\date{Arsenal package version \fileversion, \filedate}
+\maketitle
+\tableofcontents
+
+
+\clearpage
+
+\section{Address by President Volodymyr Zelenskyy, September 2, 2023}
+\label{sec:english}
+
+
+
+\textit{Dear Ukrainians, I wish you good health!}
+
+This Saturday, three cities are celebrating their day. The cities that
+are indispensable part of Ukraine.
+
+\textsc{Odesa.} Our support in the south, on the Black Sea. A city that,
+together with Ukraine, has and will always have global significance. A
+port on which the lives of various nations depend---from Ukrainian
+exports through the Great Odesa. A city of culture that knows how to
+be interesting to everyone and respects everyone.
+
+We have defended Odesa from destruction. Because the Russian regime is
+incapable of bringing anything other than degradation. And we will
+return security to Odesa. Odesa has always been a place where you feel
+lightness and happiness. Odesa will remain this way. Congratulations
+on your Day!
+
+\textsc{Sumy.} Our outpost in the northeast. Every year, on the second Saturday
+of September, it celebrates its day. And it will always celebrate it
+as a free, Ukrainian city.
+
+During these times---the times of war---unfortunately, we often
+receive reports of Russian terror from Sumy. About shelling, missiles,
+and bombs. About constant attempts by Russian sabotage groups to
+infiltrate the region.
+
+But despite everything, Sumy region is alive. Sumy is alive and gives
+strength to the entire region. And when I was in the city, I felt that
+there is faith there. Faith that evil will not prevail. Faith in
+people. Faith in Ukraine. Faith that we will definitely get through
+this time. And we will win. It will be so. Sumy, congratulations!
+
+And the third city---\textsc{Lysychansk.} A city that Ukraine still needs to
+reclaim along with the entire Luhansk region.
+
+Today, no one can specify a date when the city will be free again. But
+everyone who fights and works for Ukraine is doing everything possible
+so that our cities and villages currently under occupation can once
+again experience normal and free life.
+
+Lysychansk has always been one of the pillars of the east of our
+state, one of the key cities. A proud city! It will remain so. A city
+that knows how to work and is rightfully proud of its
+achievements. Together with Ukraine, it's all possible. With our
+strength, unity, and our ability to take care of each other – all
+cities together, all villages, all people.
+
+And one more thing worth mentioning.
+
+Undoubtedly, we will defend Ukraine and restore freedom to all our
+land. Each of us feels that this will be a Ukraine with different
+rules. The borders are the same. Democracy is probably just as
+turbulent. Freedom is one of the greatest in Europe, as always.
+
+But without a doubt, there will be no more decades-long ``business as
+usual'' for those who plundered Ukraine and put themselves above the
+law and any rules. And I thank the Ukrainian law enforcement for their
+determination to bring every case stalled for decades to a just
+conclusion. The law must work. It is so. It will be so.
+
+\textit{Glory to Ukraine!}
+
+\device
+
+\bigskip
+{\footnotesize From
+  \url{https://www.president.gov.ua/en/news/ciyeyi-suboti-svij-den-vidznachayut-tri-mista-bez-yakih-ne-u-85345},
+  vi\-sited on September 3, 2023.} 
+
+
+\clearpage
+
+\selectlanguage{ukrainian}
+
+\section{Звернення Президента Володимира Зеленського, 2 вересня 2023
+  року}
+\label{sec:ukrainian}
+
+\textit{Бажаю здоров’я, шановні українці, українки!}
+
+Цієї суботи три міста відзначають свій день. Міста, без яких не уявити Україну.
+
+\textsc{Одеса.} Наша опора на півдні, на Чорному морі. Місто, яке разом з
+Україною має та завжди матиме глобальне значення. Порт, від якого
+залежить життя різних народів "--- від українського експорту через Велику
+Одесу. Місто культури, яке вміє бути цікавим для всіх та вміє поважати
+кожного й кожну. 
+
+Ми захистили Одесу від знищення. Бо нічого іншого, крім деградації,
+російський режим нездатний принести. І ми повернемо Одесі
+безпеку. Завжди Одеса була такою, що в ній відчуваєш легкість і
+щастя. Такою Одеса і буде. Вітаю вас із вашим Днем!
+
+\textsc{Суми.} Наш форпост на північному сході. Щороку в другу суботу вересня
+відзначає свій день. І буде відзначати завжди вільним, завжди
+українським.
+
+У цей час "--- час війни "--- із Сумщини, на жаль, дуже часто надходять
+повідомлення про російський терор. Про обстріли, ракети, бомби. Про
+постійні намагання російських ДРГ зайти в область.
+
+Але, попри все, Сумщина живе. Суми живуть, дають силу всій області. І
+коли я був у місті, я відчув, що там є віра. Віра, що зло не стане
+вищим. Віра в людей. Віра в Україну. Віра в те, що ми обовʼязково
+пройдемо цей час. І переможемо. Так буде. Суми, вітаю вас!
+
+І третє місто "--- \textsc{Лисичанськ.} Місто, яке Україні ще належить
+повернути разом з усією Луганщиною.
+
+Сьогодні ніхто не назве конкретної дати, коли місто буде знову
+вільним. Але кожен, хто воює та працює заради України, робить усе
+можливе, щоб наші міста й села, які зараз в окупації, могли знову
+відчути нормальне та вільне життя.
+
+Лисичанськ завжди був однією з опор сходу нашої держави, одним із
+ключових міст. Горде місто! Таким і буде. Місто, яке вміє працювати та
+по праву пишається своїми результатами. Разом з Україною це все
+дається. З нашою силою, нашою єдністю та нашим умінням дбати одне про
+одного "--- усі міста разом, усі села, усі люди.
+
+І ще одне, про що варто сказати.
+
+Безумовно, ми захистимо Україну та повернемо свободу всій землі. І
+кожен із нас відчує, що це буде Україна інших правил. Кордони "--- ті
+самі. Демократія "--- напевно, така ж бурхлива. Свобода "--- одна з
+найбільших у Європі, як і завжди.
+
+Але точно без багатолітнього «як завжди» щодо тих, хто грабував
+Україну та ставив себе вище, ніж закон і будь-які правила. І я дякую
+українським правоохоронцям за рішучість довести до справедливого
+результату кожну "--- кожну зі справ, які десятиліттями
+гальмувались. Закон повинен працювати. Так є. Так буде.
+
+\textit{Слава Україні!}
+
+\device
+
+
+\bigskip
+{\footnotesize З
+  \url{https://www.president.gov.ua/ua/news/ciyeyi-suboti-svij-den-vidznachayut-tri-mista-bez-yakih-ne-u-85345},
+  відвідано 3 вересня 2023 року.\par} 
+
+
+\clearpage
+\selectlanguage{english}
+
+\section{Font table}
+\label{sec:fonttable}
+
+
+\displayfonttable{Arsenal-Regular.otf}
+
+\end{document}

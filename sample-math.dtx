@@ -2,6 +2,8 @@
 %<iwona>\usepackage[default, math=iwona]{arsenal}
 %<kpsans>\usepackage[default, math=kpsans]{arsenal}
 \usepackage{natbib, hyperref, amsmath}
+\usepackage{microtype}
+\setcounter{secnumdepth}{0}
 %<iwona>\usepackage{amssymb}
 \usepackage[ukrainian, english]{babel}
 \providecommand\pkg[1]{\textit{#1}}
@@ -9,21 +11,41 @@
 \newcommand{\ABC}{ABCDEFGHIJKLMNOPQRSTUVWXYZ}
 \newcommand{\alphabeta}{\alpha\beta\gamma\delta\epsilon\varepsilon\zeta\eta\theta\vartheta\iota\kappa\varkappa\lambda\mu\nu\xi o\pi\varpi\rho\varrho\sigma\varsigma\tau\upsilon\phi\varphi\chi\psi\omega}
 \newcommand{\AlphaBeta}{\Gamma\Delta\Theta\Lambda\Xi\Pi\Sigma\Upsilon\Phi\Psi\Omega}
+%% Getting version and date
+\makeatletter
+\def\GetFileInfo#1{%
+  \def\filename{#1}%
+  \def\@tempb##1 ##2 ##3\relax##4\relax{%
+    \def\filedate{##1}%
+    \def\fileversion{##2}%
+    \def\fileinfo{##3}}%
+  \edef\@tempa{\csname ver@#1\endcsname}%
+  \expandafter\@tempb\@tempa\relax? ? \relax\relax}
+\makeatother
+\GetFileInfo{arsenal.sty}
 \begin{document}
 \selectlanguage{english}
-\begin{center}
-  \bfseries\LARGE
-  Samples of Arsenal font with
+\title{Sample of Arsenal font with
 %<iwona> Iwona
 %<kpsans> KpSans
-math
-\end{center}
+math}
+\author{Boris Veytsman}
+\date{Arsenal package version \fileversion, \filedate}
+\maketitle
 
-The samples are based on the example from~\citep{Hartke06,
-  free-math-font-survey}.  
+\section{Introduction}
+\label{sec:intro}
 
 
-{\large English\par}
+The samples below are based on the example from~\citep{Hartke06,
+  free-math-font-survey}.  The math fonts are scaled based on lower
+case characters.
+
+
+\section{English}
+\label{sec:english}
+
+
 
 \textbf{Theorem 1 (Residue Theorem).}
 Let $f$ be analytic in the region $G$ except for the isolated singularities $a_1,a_2,\ldots,a_m$. If $\gamma$ is a closed rectifiable curve in $G$ which does not pass through any of the points $a_k$ and if $\gamma\approx 0$ in $G$ then
@@ -56,21 +78,24 @@ $\mathcal{\ABC} \quad \mathbb{\ABC}$
 
 {\boldmath $\alpha + b = 27$}
 
+\section{Ukrainian}
+\label{sec:ukr}
+
 \selectlanguage{ukrainian}
 
-{\large Українська мова\par}
+
 
 \textbf{Теорема 1 (Теорема про залишки).}
 Нехай $f$ аналітична в області $G$ за винятком ізольованих
-сингулярність $a_1,a_2,\ldots,a_m$. Якщо $\gamma$ закрита крива, що
-може бути спрямована, в $G$, яка не проходить скрізь жодну з точок
+сингулярностей $a_1,a_2,\ldots,a_m$. Якщо $\gamma$ є замкнута крива  в $G$, що
+може бути спрямована, яка не проходить скрізь жодну з точок
 $a_k$,  і якщо $\gamma\approx 0$ в $G$, то
 \[
 \frac{1}{2\pi i}\int_\gamma f = \sum_{k=1}^m n(\gamma;a_k) \text{Res}(f;a_k).
 \]
 
-\textbf{Теорема 2 (Максимальний модуль).}
-\emph{Нехай $G$ обмежена множина в $\mathbb{C}$, і нехай $f$
+\textbf{Теорема 2 (Максимальне значення).}
+\emph{Нехай $G$ є обмежена множина в $\mathbb{C}$, і нехай $f$ є
   безперервна функція на $G^-$, аналітична в $G$. Тоді}
 \[
 \max\{|f(z)|:z\in G^-\}=\max \{|f(z)|:z\in \partial G \}.

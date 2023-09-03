@@ -81,10 +81,10 @@
 %   \item[math] whether to enable math support.  The currently
 %     recognized options are |none|, |kpsans|, and |iwona|.  The
 %     default depends on whether Arsenal is your main font: it is
-%     |kpsans| if yes, and |none| otherwise.  If |kpsans| is selected,
+%     |iwona| if yes, and |none| otherwise.  If |iwona| is selected, we use
+%     \pkg{iwonamath}~\citep{iwonamath}. If |kpsans| is selected,
 %     we use \textsc{otf} version of KpSans
-%     fonts~\citep{kpfonts-otf}. If |iwona| is selected, we use
-%     \pkg{iwonamath}~\citep{iwonamath}.
+%     fonts~\citep{kpfonts-otf}. 
 % \item[scale] the scale for the font, by default 0.89.  The option
 % |Scale| is a synonym.
 %   \end{description}
@@ -182,7 +182,7 @@
 %<@@=arsenal>
 %<*package>
 \ProvidesExplPackage {arsenal}
-{2023-08-31} {0.1}
+{2023-09-03} {0.1}
 {Arsenal font by Andrij Shevchenko}
 %    \end{macrocode}
 %
@@ -239,7 +239,7 @@
 {
   \bool_if:NTF \l_@@_default_bool
   {
-    \tl_set:Nn \l_@@_math_tl {kpsans}
+    \tl_set:Nn \l_@@_math_tl {iwona}
   }
   {
     \tl_set:Nn \l_@@_math_tl {none}
@@ -256,6 +256,7 @@
 \newfontfamily\arsenalfamily{Arsenal-Regular.otf}
 [
   NFSSFamily=arsenal,
+  Ligatures=TeX,
   Scale=\l_@@_scale_tl,
   ItalicFont = Arsenal-Italic.otf,
   BoldFont = Arsenal-Bold.otf,
