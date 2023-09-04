@@ -17,11 +17,11 @@
 \usepackage[tableposition=top]{caption}
 \urlstyle{rm}
 \begin{document}
+  \RecordChanges
   \DocInput{\jobname.dtx}
 \end{document}
 %</driver>
 % \fi
-%
 % \GetFileInfo{arsenal.sty}
 % \title{\pkg{arsenal}---\LaTeX\ support of Arsenal fonts by Andrij Shevchenko}
 % \date{\fileversion, \filedate}
@@ -69,6 +69,7 @@
 %\label{sec:ug-options}
 %
 % \begin{variable}{default, sfdefault, math, scale, Scale}
+%   \changes{v0.2}{2023/09/04}{Added arsenal+kpsans value for math option}
 %   The options for the package use the key-value interface.
 %   The part |=true| for the boolean options can be dropped.
 %
@@ -79,12 +80,19 @@
 %   \item[sfdefault] whether to make Arsenal the sans serif font of your
 %     document, either |true| or |false| (the default).
 %   \item[math] whether to enable math support.  The currently
-%     recognized options are |none|, |kpsans|, and |iwona|.  The
-%     default depends on whether Arsenal is your main font: it is
-%     |iwona| if yes, and |none| otherwise.  If |iwona| is selected, we use
-%     \pkg{iwonamath}~\citep{iwonamath}. If |kpsans| is selected,
-%     we use \textsc{otf} version of KpSans
-%     fonts~\citep{kpfonts-otf}. 
+%     recognized options are |none|, |arsenal+kpsans|, |kpsans|, and
+%     |iwona|.  The meaning is the following:
+%     \begin{description}
+%     \item[arsenal+kpsans] Use native font for math, adding missing
+%       letter from the \textsc{otf} version of KpSans
+%       font~\citep{kpfonts-otf}.
+%     \item[kpsans] Use \textsc{otf} version of KpSans
+%       font~\citep{kpfonts-otf} for math.
+%     \item[iwona] Use use \pkg{iwonamath}~\citep{iwonamath} for math.
+%     \item[none] Do not define math fonts, leaving the math setup to the user.
+%     \end{description}
+%     The default depends on whether Arsenal is your main font: it is
+%     |iwona| if yes, and |none| otherwise.
 % \item[scale] the scale for the font, by default 0.89.  The option
 % |Scale| is a synonym.
 %   \end{description}
@@ -182,7 +190,7 @@
 %<@@=arsenal>
 %<*package>
 \ProvidesExplPackage {arsenal}
-{2023-09-03} {0.1}
+{2023-09-04} {v0.2}
 {Arsenal font by Andrij Shevchenko}
 %    \end{macrocode}
 %
@@ -209,7 +217,7 @@
   default .default:n = true,
   sfdefault .bool_set:N = \l_@@_sfdefault_bool,
   sfdefault .default:n = true,
-  math .choices:nn = {none, kpsans, iwona}
+  math .choices:nn = {none, arsenal+kpsans, kpsans, iwona}
   {\tl_set_eq:NN \l_@@_math_tl \l_keys_choice_tl },
   scale .tl_set:N = \l_@@_scale_tl,
   Scale .tl_set:N = \l_@@_scale_tl,
@@ -339,6 +347,8 @@
 }
 %    \end{macrocode}
 %
+% \changes{v0.2}{2023/09/04}{Separate scaling for upper and lowercase
+% for kpsans}
 % Now kpsans.  Mostly from~\citep{kpfonts-otf}.
 %    \begin{macrocode}
 \tl_if_eq:NnT \l_@@_math_tl {kpsans}
@@ -355,7 +365,93 @@
   Scale=\l_@@_tmp_tl,
   BoldFont=KpMath-SansBold.otf]
   
+  \setmathfont{KpMath-Sans.otf}[
+  range={
+    scr/{Latin},
+    bfscr/{Latin},
+    frak/{Latin},
+    bffrak/{Latin},
+    up/{Latin, Greek, misc},
+    bb/{Latin, Greek, misc},
+    it/{Latin, Greek, misc},
+    bbit/{Latin, Greek, misc},
+    tt/{Latin, Greek, misc},
+    sfup/{Latin, Greek, misc},
+    sfit/{Latin, Greek, misc},
+    bfup/{Latin, Greek, misc},
+    bfit/{Latin, Greek, misc},
+    bfsfup/{Latin, Greek, misc},
+    bfsfit/{Latin, Greek, misc},
+  },
+  Scale=\fp_to_tl:n {\l_@@_tmp_tl * 0.9},
+  BoldFont=KpMath-SansBold.otf]
 }
+%    \end{macrocode}
+%
+% And Arsenal+KpSans.  We adjust separately upper and lower cases\ldots
+%    \begin{macrocode}
+\tl_if_eq:NnT \l_@@_math_tl {arsenal+kpsans}
+{
+  \tl_set:Ne \l_@@_tmp_tl {\fp_to_tl:n {\l_@@_scale_tl * 1.1}}
+  \RequirePackage[symbols]{kpfonts-otf}
+
+  \setmathfont{KpMath-Sans.otf}[
+  Scale=\l_@@_tmp_tl,
+  BoldFont=KpMath-SansBold.otf]
+
+  \setmathfont{KpMath-Sans.otf}[
+  range={cal/{Latin},bfcal/{Latin}},
+  RawFeature=+ss01,
+  Scale=\fp_to_tl:n {\l_@@_tmp_tl * 0.9},
+  BoldFont=KpMath-SansBold.otf]
+
+  \setmathfont{KpMath-Sans.otf}[
+  range={
+    scr/{Latin},
+    bfscr/{Latin},
+    frak/{Latin},
+    bffrak/{Latin},
+    up/{Greek, misc},
+    bb/{Greek, misc},
+    it/{Greek, misc},
+    bbit/{Greek, misc},
+    tt/{Greek, misc},
+    sfup/{Greek, misc},
+    sfit/{Greek, misc},
+    bfup/{Greek, misc},
+    bfit/{Greek, misc},
+    bfsfup/{Greek, misc},
+    bfsfit/{Greek, misc},
+  },
+  Scale=\fp_to_tl:n {\l_@@_tmp_tl * 0.9},
+  BoldFont=KpMath-SansBold.otf]
+  
+  
+  \setmathfont{Arsenal-Regular.otf}[
+  range={
+    up/{Latin, latin, num},
+    bb/{Latin, latin, num},
+    tt/{Latin, latin, num},
+    sfup/{Latin, latin, num},
+    bfup/{Latin, latin, num},
+    bfsfup/{Latin, latin, num},
+  },
+  Scale=\l_@@_scale_tl,
+  BoldFont=Arsenal-Bold.otf]
+
+  \setmathfont{Arsenal-Italic.otf}[
+  range={
+    it/{Latin, latin},
+    bbit/{Latin, latin},
+    sfit/{Latin, latin, num},
+    bfit/{Latin, latin, num},
+    bfsfit/{Latin, latin, num},
+  },
+  Scale=\l_@@_scale_tl,
+  BoldFont=Arsenal-BoldItalic.otf]
+
+
+}      
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -367,5 +463,5 @@
 % \bibliographystyle{plainnat}
 %
 %
-%\PrintIndex
-% 
+% \PrintIndex
+% \PrintChanges

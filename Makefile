@@ -6,7 +6,11 @@ FONTS = \
 	Arsenal-Italic.otf \
 	Arsenal-Regular.otf 
 
-SAMPLES = sample-math-iwona.tex sample-math-kpsans.tex sample-text.tex
+SAMPLES = \
+	sample-math-arsenal+kpsans.tex \
+	sample-math-iwona.tex \
+	sample-math-kpsans.tex \
+	sample-text.tex
 
 PDF = $(PACKAGE).pdf ${SAMPLES:%.tex=%.pdf}
 
