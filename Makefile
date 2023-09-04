@@ -39,6 +39,16 @@ all:  ${PDF} $(PACKAGE).sty $(FONTS) LICENSE_FONTS
 	while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log) \
 	do xelatex $<; done
 
+
+sample-math-arsenal+kpsans.pdf:  sample-math-arsenal+kpsans.tex   $(PACKAGE).sty $(FONTS)
+	lualatex $<
+	- bibtex sample-math-arsenal+kpsans
+	lualatex $<
+	lualatex $<
+	while ( grep -q '^LaTeX Warning: Label(s) may have changed' sample-math-arsenal+kpsans.log) \
+	do lualatex $<; done
+
+
 sample-math-%.tex: $(PACKAGE).ins sample-math.dtx
 	xelatex $<
 

@@ -85,14 +85,23 @@
 %     \begin{description}
 %     \item[arsenal+kpsans] Use native font for math, adding missing
 %       letter from the \textsc{otf} version of KpSans
-%       font~\citep{kpfonts-otf}.
+%       font~\citep{kpfonts-otf}.  Unfortunately this option presently
+%       does not work properly with \XeTeX, using wrong font
+%       dimensions resulting in rather bad spacing.
 %     \item[kpsans] Use \textsc{otf} version of KpSans
 %       font~\citep{kpfonts-otf} for math.
 %     \item[iwona] Use use \pkg{iwonamath}~\citep{iwonamath} for math.
 %     \item[none] Do not define math fonts, leaving the math setup to the user.
 %     \end{description}
-%     The default depends on whether Arsenal is your main font: it is
-%     |iwona| if yes, and |none| otherwise.
+%     The default depends on whether Arsenal is your main font and
+%     which engine is used:
+%     \begin{enumerate}
+%     \item If Arsenal is the main font, and \XeTeX\ is used, then
+%       |iwona|.
+%     \item If Arsenal is the main font, and Lua\TeX\ is used, then
+%     |arsenal+kpsans|. 
+%     \item If Arsenal is not your main font, then |none|.
+%     \end{enumerate}
 % \item[scale] the scale for the font, by default 0.89.  The option
 % |Scale| is a synonym.
 %   \end{description}
@@ -247,7 +256,13 @@
 {
   \bool_if:NTF \l_@@_default_bool
   {
-    \tl_set:Nn \l_@@_math_tl {iwona}
+    \sys_if_engine_xetex:TF
+    {
+      \tl_set:Nn \l_@@_math_tl {iwona}
+    }
+    {
+      \tl_set:Nn \l_@@_math_tl {arsenal+kpsans}
+    }
   }
   {
     \tl_set:Nn \l_@@_math_tl {none}
