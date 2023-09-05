@@ -6,6 +6,8 @@
 \urlstyle{rm}
 \usepackage{microtype}
 \setcounter{secnumdepth}{0}
+\usepackage{hologo}
+\providecommand*\XeTeX{\hologo{XeTeX}}
 %<iwona>\usepackage{amssymb}
 \usepackage[ukrainian, english]{babel}
 \providecommand\pkg[1]{\textit{#1}}
@@ -13,9 +15,6 @@
 \newcommand{\ABC}{ABCDEFGHIJKLMNOPQRSTUVWXYZ}
 \newcommand{\alphabeta}{\alpha\beta\gamma\delta\epsilon\varepsilon\zeta\eta\theta\vartheta\iota\kappa\varkappa\lambda\mu\nu\xi o\pi\varpi\rho\varrho\sigma\varsigma\tau\upsilon\phi\varphi\chi\psi\omega}
 \newcommand{\AlphaBeta}{\Gamma\Delta\Theta\Lambda\Xi\Pi\Sigma\Upsilon\Phi\Psi\Omega}
-
-
-
 %% Getting version and date
 \makeatletter
 \def\GetFileInfo#1{%
@@ -48,7 +47,8 @@ math
 The samples below are based on the example from~\citep{Hartke06,
   free-math-font-survey}.
 %<iwona>The math fonts are scaled based on lower case characters.
-
+%<arsenal+kpsans>Arsenal + KpSans math may not work correctly with
+%<arsenal+kpsans>\XeTeX.  Please use Lua\TeX.
 
 \section{English}
 \label{sec:english}
@@ -148,6 +148,9 @@ $\abc\quad\mathfrak{\abc}$
 
 Bold math\\
 {\boldmath $\alpha + b = 27$}
+
+Primes:
+$f', f'', f'''$.
 \egroup
 
 

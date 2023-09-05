@@ -179,8 +179,27 @@
 %   \cs{textsmileblack} (\textsmileblack).
 % \end{function}
 %
-% \end{documentation}
 %
+%\subsection{Math support}
+%\label{sec:ug-math}
+%
+% The support of math is presently experimental.  We offer several
+% options, as discussed above in Section~\ref{ug-options}.  Iwona font
+% matches Arsenal in color and sizes, but some letters and proportions
+% are different from those for Arsenal.  KpSans seems to be slightly
+% darker.  The option of taking Lating letters from Arsenal and the
+% missing symbols from KpSans is attractive, but is currently
+% recommended for Lua\TeX\ only, since the font parameters seem to be
+% misinterpreted by \XeTeX\ engine.
+%
+% As discussed in \pkg{kpsans} documentation, if you use this package
+% (options |kpsans| and |arsenal+kpsans|), do \emph{not} use
+% \pkg{amssymb}.  The corresponding symbols are reimplemented in
+% \pkg{kpsans}, and (almost) all \pkg{amssymb} commands are available
+% by default when one of these options is chosen.  
+%
+% \end{documentation}
+% \clearpage
 %
 % \begin{implementation}
 %
@@ -408,6 +427,11 @@
 %    \begin{macrocode}
 \tl_if_eq:NnT \l_@@_math_tl {arsenal+kpsans}
 {
+  \sys_if_engine_xetex:T
+  {
+    \ClassWarningNoLine{arsenal}{Option~ arsenal+kpsans~ may~ not~ work~
+      with~ XeTeX~ engine.~  Please~ use~ lualatex}
+  }
   \tl_set:Ne \l_@@_tmp_tl {\fp_to_tl:n {\l_@@_scale_tl * 1.1}}
   \RequirePackage[symbols]{kpfonts-otf}
 
