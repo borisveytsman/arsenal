@@ -23,12 +23,11 @@ This package provides the fonts and LaTeX support for them with matching math.
 
 Changes:
 
-   Version 0.2, 2023-09-04.  Added option math=arsenal+kpsans, with
-                             math from Arsenal with missing letter
-                             from KpSans.  At present the correct
-                             spacing works only with LuaTeX.  Now the
-                             default for math is iwona, if XeTeX is
-                             detected, and arsenal+kpsans, if LuaTeX
-                             is detected.
+   Version 0.2, 2023-09-05.  Added option math=arsenal+kpsans: a mix
+                             of Arsenal and KpSans glyphs.  At present
+                             the correct spacing works only with
+                             LuaTeX.  Now the default for math is
+                             iwona, if XeTeX is detected, and
+                             arsenal+kpsans, if LuaTeX is detected.
 
    Version 0.1, 2023-09-03.  The first release version.
