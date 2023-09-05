@@ -325,7 +325,7 @@
 %   \texttenge,
 %   \textruble
 % }
-% Currency symbolse
+% Currency symbols
 %    \begin{macrocode}
 \DeclareUnicodeSymbol{\texthryvnia}       {"20B4}
 \DeclareUnicodeSymbol{\texttugrik}        {"20AE}
@@ -364,7 +364,8 @@
 %
 % \changes{v0.2}{2023/09/04}{Separate scaling for upper and lowercase
 % for kpsans}
-% Now kpsans.  Mostly from~\citep{kpfonts-otf}.
+% Now kpsans, see~\citep{kpfonts-otf}.  We adjust separately
+% upper and lower cases\ldots 
 %    \begin{macrocode}
 \tl_if_eq:NnT \l_@@_math_tl {kpsans}
 {
@@ -403,7 +404,7 @@
 }
 %    \end{macrocode}
 %
-% And Arsenal+KpSans.  We adjust separately upper and lower cases\ldots
+% And Arsenal+KpSans.  We again adjust separately upper and lower cases\ldots
 %    \begin{macrocode}
 \tl_if_eq:NnT \l_@@_math_tl {arsenal+kpsans}
 {
@@ -422,21 +423,21 @@
 
   \setmathfont{KpMath-Sans.otf}[
   range={
-    scr/{Latin},
-    bfscr/{Latin},
-    frak/{Latin},
-    bffrak/{Latin},
-    up/{Greek, misc},
-    bb/{Latin, Greek, misc},
-    it/{Greek, misc},
-    bbit/{Greek, misc},
-    tt/{Greek, misc},
-    sfup/{Greek, misc},
-    sfit/{Greek, misc},
-    bfup/{Greek, misc},
-    bfit/{Greek, misc},
-    bfsfup/{Greek, misc},
-    bfsfit/{Greek, misc},
+    scr/{Latin, num},
+    bfscr/{Latin, num},
+    frak/{Latin, num},
+    bffrak/{Latin, num},
+    up/{Greek, misc, num},
+    bb/{Latin, Greek, misc, num},
+    it/{Greek, misc, num},
+    bbit/{Greek, misc, num},
+    tt/{Greek, misc, num},
+    sfup/{Greek, misc, num},
+    sfit/{Greek, misc, num},
+    bfup/{Greek, misc, num},
+    bfit/{Greek, misc, num},
+    bfsfup/{Greek, misc, num},
+    bfsfit/{Greek, misc, num},
   },
   Scale=\fp_to_tl:n {\l_@@_tmp_tl * 0.9},
   BoldFont=KpMath-SansBold.otf]
@@ -455,8 +456,8 @@
 
   \setmathfont{Arsenal-Italic.otf}[
   range={
-    it/{Latin, latin},
-    bbit/{Latin, latin},
+    it/{Latin, latin, num},
+    bbit/{Latin, latin, num},
     sfit/{Latin, latin, num},
     bfit/{Latin, latin, num},
     bfsfit/{Latin, latin, num},
